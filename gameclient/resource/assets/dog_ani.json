@@ -1,0 +1,35 @@
+{"mc":{
+	"ani":{
+		"frameRate":10,
+		"labels":[
+			{"name":"run","frame":1,"end":2}
+			,{"name":"jump","frame":3,"end":3}
+			
+			],
+		"events":[
+			
+			],
+		"frames":[
+			
+			{
+			"res":"dog_run1",
+			"x":8,
+			"y":6
+			},
+			{
+			"res":"dog_run2",
+			"x":14,
+			"y":2
+			},
+			{
+			"res":"dog_jump",
+			"x":8,
+			"y":0
+			}
+			]
+}},
+	"res":{
+		"dog_run1":{"x":0,"y":0,"w":139,"h":110},
+		"dog_jump":{"x":277,"y":0,"w":122,"h":116},
+		"dog_run2":{"x":141,"y":0,"w":134,"h":114}
+	}}

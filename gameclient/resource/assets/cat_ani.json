@@ -1,0 +1,35 @@
+{"mc":{
+	"ani":{
+		"frameRate":10,
+		"labels":[
+			{"name":"run","frame":1,"end":2}
+			,{"name":"jump","frame":3,"end":3}
+			
+			],
+		"events":[
+			
+			],
+		"frames":[
+			
+			{
+			"res":"cat_run1",
+			"x":0,
+			"y":6
+			},
+			{
+			"res":"cat_run2",
+			"x":4,
+			"y":3
+			},
+			{
+			"res":"cat_jump",
+			"x":4,
+			"y":0
+			}
+			]
+}},
+	"res":{
+		"cat_run2":{"x":0,"y":0,"w":144,"h":113},
+		"cat_run1":{"x":146,"y":0,"w":147,"h":110},
+		"cat_jump":{"x":295,"y":0,"w":127,"h":116}
+	}}

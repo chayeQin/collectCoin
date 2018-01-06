@@ -1,0 +1,224 @@
+{
+	"groups": [
+		{
+			"keys": "description_json,boom_png,btn_jump_a_png,btn_jump_b_png,coin_jin_png,coin_xing_png,coin_yin_png,qjb_bg_jpg,cat_ani_png,cat_ani_json,dog_ani_png,dog_ani_json,num4_png,num1_fnt,num1_png,num2_fnt,num2_png,num3_fnt,num3_png,num4_fnt,num5_fnt,num5_png,win_png,lose_png,chizhadan_mp3,chijinbi_mp3,diaoyue_mp3,shengli_mp3,shibai_mp3,bmg_mp3,btn_left_png,btn_right_png,btn_png,num6_fnt,num6_png,you_png,num7_png,num7_fnt",
+			"name": "preload"
+		},
+		{
+			"keys": "tips_png,loadingBg_jpg,loading_a_png,loading_b_png",
+			"name": "loading"
+		}
+	],
+	"resources": [
+		{
+			"url": "config/description.json",
+			"type": "json",
+			"name": "description_json"
+		},
+		{
+			"url": "assets/boom.png",
+			"type": "image",
+			"name": "boom_png"
+		},
+		{
+			"url": "assets/btn_jump_a.png",
+			"type": "image",
+			"name": "btn_jump_a_png"
+		},
+		{
+			"url": "assets/btn_jump_b.png",
+			"type": "image",
+			"name": "btn_jump_b_png"
+		},
+		{
+			"url": "assets/coin_jin.png",
+			"type": "image",
+			"name": "coin_jin_png"
+		},
+		{
+			"url": "assets/coin_xing.png",
+			"type": "image",
+			"name": "coin_xing_png"
+		},
+		{
+			"url": "assets/coin_yin.png",
+			"type": "image",
+			"name": "coin_yin_png"
+		},
+		{
+			"url": "assets/qjb_bg.jpg",
+			"type": "image",
+			"name": "qjb_bg_jpg"
+		},
+		{
+			"url": "assets/cat_ani.png",
+			"type": "image",
+			"name": "cat_ani_png"
+		},
+		{
+			"url": "assets/cat_ani.json",
+			"type": "json",
+			"name": "cat_ani_json"
+		},
+		{
+			"url": "assets/dog_ani.png",
+			"type": "image",
+			"name": "dog_ani_png"
+		},
+		{
+			"url": "assets/dog_ani.json",
+			"type": "json",
+			"name": "dog_ani_json"
+		},
+		{
+			"url": "assets/num4.png",
+			"type": "image",
+			"name": "num4_png"
+		},
+		{
+			"url": "assets/num1.fnt",
+			"type": "font",
+			"name": "num1_fnt"
+		},
+		{
+			"url": "assets/num1.png",
+			"type": "image",
+			"name": "num1_png"
+		},
+		{
+			"url": "assets/num2.fnt",
+			"type": "font",
+			"name": "num2_fnt"
+		},
+		{
+			"url": "assets/num2.png",
+			"type": "image",
+			"name": "num2_png"
+		},
+		{
+			"url": "assets/num3.fnt",
+			"type": "font",
+			"name": "num3_fnt"
+		},
+		{
+			"url": "assets/num3.png",
+			"type": "image",
+			"name": "num3_png"
+		},
+		{
+			"url": "assets/num4.fnt",
+			"type": "font",
+			"name": "num4_fnt"
+		},
+		{
+			"url": "assets/num5.fnt",
+			"type": "font",
+			"name": "num5_fnt"
+		},
+		{
+			"url": "assets/num5.png",
+			"type": "image",
+			"name": "num5_png"
+		},
+		{
+			"url": "assets/win.png",
+			"type": "image",
+			"name": "win_png"
+		},
+		{
+			"url": "assets/lose.png",
+			"type": "image",
+			"name": "lose_png"
+		},
+		{
+			"url": "assets/sound/chizhadan.mp3",
+			"type": "sound",
+			"name": "chizhadan_mp3"
+		},
+		{
+			"url": "assets/sound/chijinbi.mp3",
+			"type": "sound",
+			"name": "chijinbi_mp3"
+		},
+		{
+			"url": "assets/sound/diaoyue.mp3",
+			"type": "sound",
+			"name": "diaoyue_mp3"
+		},
+		{
+			"url": "assets/sound/shengli.mp3",
+			"type": "sound",
+			"name": "shengli_mp3"
+		},
+		{
+			"url": "assets/sound/shibai.mp3",
+			"type": "sound",
+			"name": "shibai_mp3"
+		},
+		{
+			"url": "assets/sound/bmg.mp3",
+			"type": "sound",
+			"name": "bmg_mp3"
+		},
+		{
+			"url": "assets/btn_left.png",
+			"type": "image",
+			"name": "btn_left_png"
+		},
+		{
+			"url": "assets/btn_right.png",
+			"type": "image",
+			"name": "btn_right_png"
+		},
+		{
+			"url": "assets/btn.png",
+			"type": "image",
+			"name": "btn_png"
+		},
+		{
+			"url": "assets/num6.fnt",
+			"type": "font",
+			"name": "num6_fnt"
+		},
+		{
+			"url": "assets/num6.png",
+			"type": "image",
+			"name": "num6_png"
+		},
+		{
+			"url": "assets/you.png",
+			"type": "image",
+			"name": "you_png"
+		},
+		{
+			"url": "assets/num7.png",
+			"type": "image",
+			"name": "num7_png"
+		},
+		{
+			"url": "assets/num7.fnt",
+			"type": "font",
+			"name": "num7_fnt"
+		},
+		{
+			"url": "loading/tips.png",
+			"type": "image",
+			"name": "tips_png"
+		},
+		{
+			"url": "loading/loadingBg.jpg",
+			"type": "image",
+			"name": "loadingBg_jpg"
+		},
+		{
+			"url": "loading/loading_a.png",
+			"type": "image",
+			"name": "loading_a_png"
+		},
+		{
+			"url": "loading/loading_b.png",
+			"type": "image",
+			"name": "loading_b_png"
+		}
+	]
+}

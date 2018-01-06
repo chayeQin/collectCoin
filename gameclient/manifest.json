@@ -1,0 +1,41 @@
+{
+	"initial": [
+		"libs/modules/egret/egret.js",
+		"libs/modules/egret/egret.web.js",
+		"libs/modules/game/game.js",
+		"libs/modules/tween/tween.js",
+		"libs/modules/res/res.js",
+		"libs/modules/eui/eui.js",
+		"libs/modules/socket/socket.js",
+		"promise/bin/promise.js"
+	],
+	"game": [
+		"bin-debug/scenes/StartScene.js",
+		"bin-debug/GameConfig.js",
+		"bin-debug/Main.js",
+		"bin-debug/ServerConfig.js",
+		"bin-debug/ShA1.js",
+		"bin-debug/TestConfig.js",
+		"bin-debug/manager/GameMgr.js",
+		"bin-debug/manager/PopupMgr.js",
+		"bin-debug/manager/ResponseMgr.js",
+		"bin-debug/manager/SceneMgr.js",
+		"bin-debug/manager/SendMsgMgr.js",
+		"bin-debug/model/GameModel.js",
+		"bin-debug/scenes/GameScene.js",
+		"bin-debug/LoadingUI.js",
+		"bin-debug/util/Action.js",
+		"bin-debug/util/Button.js",
+		"bin-debug/util/DisplayUtil.js",
+		"bin-debug/util/EventCenter.js",
+		"bin-debug/util/EventConst.js",
+		"bin-debug/util/Net.js",
+		"bin-debug/util/Util.js",
+		"bin-debug/views/DropItem.js",
+		"bin-debug/views/GameLayer.js",
+		"bin-debug/views/GameUI.js",
+		"bin-debug/views/JoyStick.js",
+		"bin-debug/views/ResultView.js",
+		"bin-debug/views/Role.js"
+	]
+}
