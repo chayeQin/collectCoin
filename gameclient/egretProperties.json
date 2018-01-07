@@ -31,6 +31,10 @@
     {
       "name": "promise",
       "path": "./promise"
+    },
+    {
+      "name": "sdk",
+      "path": "../module/sdk"
     }
   ]
 }

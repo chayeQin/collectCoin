@@ -6,8 +6,8 @@
 class TestConfig {
 
     private static _isTest = false;
-    static TEST_URL = "ws://192.168.1.72:10000"
-    // static TEST_URL = "ws://39.108.173.10:10001"
+    // static TEST_URL = "ws://192.168.1.72:10000"
+    static TEST_URL = "ws://39.108.173.10:10001"
 
     private static _roomId = "";
     private static _uid = "";
