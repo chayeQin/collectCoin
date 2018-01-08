@@ -6,17 +6,17 @@
 class GameLayer extends egret.DisplayObjectContainer {
     private tmp : egret.Bitmap;
     private _dropImgLst : DropItem[];
-    private _rolelst : {};
-    private _groundLst : any[];
+    private _rolelst :  { [key:string]: Role};
     private _gameEndLab : egret.TextField;
 
     constructor(){
         super();
         this._dropImgLst = new Array<DropItem>();
         this._rolelst = {};
-        this._groundLst = new Array<any>();
-        let rect:egret.Rectangle = new egret.Rectangle(0, 0, DisplayUtil.stageWidth, GameConfig.VIEW_HEIGHT);  
+        let rect:egret.Rectangle = new egret.Rectangle(0, GameConfig.TOP_Y, DisplayUtil.stageWidth, GameConfig.VIEW_HEIGHT);  
         this.mask = rect;
+
+        // 测试文本
         this._gameEndLab = DisplayUtil.label("游戏结束", 100);
         this.addChild(this._gameEndLab)
         this._gameEndLab.x = 150;
@@ -75,7 +75,7 @@ class GameLayer extends egret.DisplayObjectContainer {
             let role = new Role(res, pData);
             this.addChild(role);
             role.x = x
-            role.y = GameConfig.VIEW_HEIGHT;
+            role.y = GameConfig.TOP_Y + GameConfig.VIEW_HEIGHT;
             this._rolelst[pData.uid] = role;
 
         })
@@ -113,7 +113,7 @@ class GameLayer extends egret.DisplayObjectContainer {
         let rmLst = new Array<DropItem>();
         for (let i = 0; i < this._dropImgLst.length; ++i){
             let img = this._dropImgLst[i];
-            let role = this._rolelst[GameModel.instance.userUid]
+            let role:Role = this._rolelst[GameModel.instance.userUid]
             if (role){
                 let tRect = role.getTransformedBounds(this);
                 tRect.width = 80;
@@ -124,14 +124,27 @@ class GameLayer extends egret.DisplayObjectContainer {
                 if (tmpRect.intersects(tRect)){
                     rmLst.push(img);
                     let itemId = img.itemId
+                    // if (img.point != 0)
                     Net.instance.send("game_score_change", itemId, img.point);
+
                     let sound:egret.Sound = RES.getRes(img.sound);
                     sound.play(0, 1);
+
+                    if (img.effect != ""){
+                        let t = new HitEffect(img.effect);
+                        this.addChild(t)
+                        t.x = img.x;
+                        t.y = img.y;
+                    }
+
+                    if (img.dropType == DROP_TYPE.BOOM) {
+                        EventCenter.instance.dispatchSelfEvent(EventConst.HIT_BOOM, role.id);
+                    }
                     continue;
                 }
             }
 
-            if (img.y > GameConfig.VIEW_HEIGHT + img.height) {
+            if (img.y > GameConfig.TOP_Y + GameConfig.VIEW_HEIGHT + img.height) {
                 rmLst.push(img);
                 continue;
 

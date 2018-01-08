@@ -142,7 +142,7 @@ class GameModel {
         let t = 0;
         while (dropDataLst.length < 30){
             let startX = Math.random()*620 + 50;
-            let resIndex = Math.floor(Math.random() * 3) + 1;
+            let resIndex = Math.floor(Math.random() * 4) + 1;
             let data = [resIndex, t, startX]
             dropDataLst.push(data);
             let randT = Math.random()*300 + 200;

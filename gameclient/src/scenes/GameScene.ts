@@ -35,18 +35,18 @@ class GameScene extends egret.DisplayObjectContainer {
 
         let dLayer =  new GameLayer();
         this.addChild(dLayer);
-        dLayer.y = 200;
+        // dLayer.y = 211;
 
         this._score1 = DisplayUtil.number("num4_fnt");
         this.addChild(this._score1);
         this._score1.x=138;
-        this._score1.y=143;
+        this._score1.y=150;
         this._score1.text = "0";
 
         this._score2 = DisplayUtil.number("num1_fnt");
         this.addChild(this._score2);
-        this._score2.x=560;
-        this._score2.y=143;
+        this._score2.x=580;
+        this._score2.y=150;
         this._score2.text = "0";
 
         this._clock = DisplayUtil.number("num3_fnt");
@@ -64,6 +64,10 @@ class GameScene extends egret.DisplayObjectContainer {
 
         this.addEventListener(egret.Event.ADDED_TO_STAGE, this.onEnter, this);
         this.addEventListener(egret.Event.REMOVED_FROM_STAGE, this.onExit, this);
+    }
+
+    private onTouchBegin(evt : egret.TouchEvent ){
+        console.log(evt);
     }
     
     public destroy(){
@@ -89,16 +93,20 @@ class GameScene extends egret.DisplayObjectContainer {
             return;
         }
 
-        if (GameModel.instance.isReady) { // 准备期间
-            let leftTime =  GameModel.instance.startTime - Util.time();
+        if (GameModel.instance.startTime+1000 - Util.time() >= 0) { // 准备期间
+            let leftTime =  GameModel.instance.startTime+1000 - Util.time();
+            leftTime = Math.max(leftTime, 0);
             leftTime /= 1000;
             leftTime = Math.floor(leftTime);
-            leftTime = Math.max(leftTime, 0);
+            console.log("***leftTime", leftTime)
             this._readyClock.visible = true;
             this._readyClock.text = leftTime + "";
             Util.setAnchorPoint(this._readyClock, 0.5, 0.5);
         } else {
             this._readyClock.visible = false;
+        }
+
+        if (Util.time() > GameModel.instance.startTime){
             let leftTime = GameConfig.GAME_TIME * 1000 + GameModel.instance.startTime - Util.time();
             leftTime /= 1000;
             leftTime = Math.ceil(leftTime);
@@ -134,19 +142,19 @@ class GameScene extends egret.DisplayObjectContainer {
         let targetScoreTxt : egret.BitmapText;
         if (userId == GameModel.instance.userUid) {
             scoreTxt.x=138;
-            scoreTxt.y=120;
+            scoreTxt.y=130;
             targetScoreTxt = this._score1
             totalScore = Math.max(totalScore, 0);
             targetScoreTxt.text = totalScore + "";
         } else {
-            scoreTxt.x=560;
-            scoreTxt.y=120;
+            scoreTxt.x=580;
+            scoreTxt.y=130;
             targetScoreTxt = this._score2
             totalScore = Math.max(totalScore, 0);
             targetScoreTxt.text = totalScore + "";
         }
         let tw : egret.Tween = egret.Tween.get(scoreTxt);
-        tw.to({y:20}, 1000).wait(500).call(()=>{
+        tw.to({y:40}, 1000).wait(500).call(()=>{
            
             this.removeChild(scoreTxt);
         })

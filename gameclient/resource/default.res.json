@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "description_json,boom_png,btn_jump_a_png,btn_jump_b_png,coin_jin_png,coin_xing_png,coin_yin_png,qjb_bg_jpg,cat_ani_png,cat_ani_json,dog_ani_png,dog_ani_json,num4_png,num1_fnt,num1_png,num2_fnt,num2_png,num3_fnt,num3_png,num4_fnt,num5_fnt,num5_png,win_png,lose_png,chizhadan_mp3,chijinbi_mp3,diaoyue_mp3,shengli_mp3,shibai_mp3,bmg_mp3,btn_left_png,btn_right_png,btn_png,num6_fnt,num6_png,you_png,num7_png,num7_fnt",
+			"keys": "description_json,boom_png,btn_jump_a_png,btn_jump_b_png,coin_jin_png,coin_xing_png,coin_yin_png,qjb_bg_jpg,cat_ani_png,cat_ani_json,dog_ani_png,dog_ani_json,num4_png,num1_fnt,num1_png,num2_fnt,num2_png,num3_fnt,num3_png,num4_fnt,num5_fnt,num5_png,win_png,lose_png,chizhadan_mp3,chijinbi_mp3,diaoyue_mp3,shengli_mp3,shibai_mp3,bmg_mp3,btn_left_png,btn_right_png,btn_png,num6_fnt,num6_png,you_png,num7_png,num7_fnt,zuanshi_png,jinbi_json,jinbi_png,yinbi_json,yinbi_png,zuanshi_json,boom_json,boomEffect_png,boomEffect_json,tips_bg_png",
 			"name": "preload"
 		},
 		{
@@ -219,6 +219,56 @@
 			"url": "loading/loading_b.png",
 			"type": "image",
 			"name": "loading_b_png"
+		},
+		{
+			"name": "zuanshi_png",
+			"type": "image",
+			"url": "assets/zuanshi.png"
+		},
+		{
+			"name": "jinbi_json",
+			"type": "json",
+			"url": "assets/jinbi.json"
+		},
+		{
+			"name": "jinbi_png",
+			"type": "image",
+			"url": "assets/jinbi.png"
+		},
+		{
+			"name": "yinbi_json",
+			"type": "json",
+			"url": "assets/yinbi.json"
+		},
+		{
+			"name": "yinbi_png",
+			"type": "image",
+			"url": "assets/yinbi.png"
+		},
+		{
+			"name": "zuanshi_json",
+			"type": "json",
+			"url": "assets/zuanshi.json"
+		},
+		{
+			"name": "boom_json",
+			"type": "json",
+			"url": "assets/boom.json"
+		},
+		{
+			"name": "boomEffect_png",
+			"type": "image",
+			"url": "assets/boomEffect.png"
+		},
+		{
+			"name": "boomEffect_json",
+			"type": "json",
+			"url": "assets/boomEffect.json"
+		},
+		{
+			"name": "tips_bg_png",
+			"type": "image",
+			"url": "assets/tips_bg.png"
 		}
 	]
 }

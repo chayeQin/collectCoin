@@ -65,9 +65,21 @@ class StartScene extends egret.DisplayObjectContainer {
         this.addChild(this._tmpbtn)
         this._tmpbtn.x = 500;
         this._tmpbtn.y = 500;
-    }
 
+
+        // let t = new Role("cat_ani")
+        // this.addChild(t)
+        // t.x = 300;
+        // t.y = 500;
+        // this.role = t;
+
+
+    }
+    role;
     private startGame(){
+
+        // EventCenter.instance.dispatchSelfEvent(EventConst.HIT_BOOM, this.role.id);
+
         var sound:egret.Sound = RES.getRes("chizhadan_mp3");
         sound.play(0, 1);
         let uid = this.randUid();

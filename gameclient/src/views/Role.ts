@@ -7,6 +7,7 @@ enum ROLE_STATE {
     NORMAL,
     RUN,
     JUMP,
+    BOOM,
 }
 
 class Role extends egret.DisplayObjectContainer {
@@ -20,12 +21,12 @@ class Role extends egret.DisplayObjectContainer {
     private _vx:number;
     private _vy:number;
     private _maxJumpY:number;
-
     private _actStartTime:number;
     private _actStartX:number;
     private _actStartY:number;
 
     private _posSend:number;
+    private _boomeffect:egret.MovieClip;
 
     constructor(res:string, pData?:{uid:string, teamId:string}) {
         super();
@@ -35,8 +36,14 @@ class Role extends egret.DisplayObjectContainer {
         let txtr = RES.getRes(res + "_png");
         let mcFactory:egret.MovieClipDataFactory = new egret.MovieClipDataFactory( data, txtr );
         this._mc = new egret.MovieClip( mcFactory.generateMovieClipData("ani")); 
-        Util.setAnchorPoint(this._mc, 0.5, 1);
         this.addChild(this._mc);
+
+        let boomData = RES.getRes("boomEffect_json");
+        let boomTxtr = RES.getRes("boomEffect_png");
+        let mcFactory2:egret.MovieClipDataFactory = new egret.MovieClipDataFactory( boomData, boomTxtr );
+        this._boomeffect = new egret.MovieClip( mcFactory2.generateMovieClipData("effect")); 
+        this.addChild(this._boomeffect);
+        this._boomeffect.visible = false;
 
         this._userTag = DisplayUtil.sprite("you_png");
         this.addChild(this._userTag);
@@ -63,6 +70,7 @@ class Role extends egret.DisplayObjectContainer {
         EventCenter.instance.addEventListener(EventConst.JOY_STICK,  this.onJoyStick, this);
         EventCenter.instance.addEventListener(EventConst.JUMP_BTN, this.onJump, this);
         EventCenter.instance.addEventListener(EventConst.ROLE_STATE, this.onRoleState, this)
+        EventCenter.instance.addEventListener(EventConst.HIT_BOOM, this.onBoom, this)
         this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
     }
 
@@ -70,6 +78,7 @@ class Role extends egret.DisplayObjectContainer {
         EventCenter.instance.removeEventListener(EventConst.JUMP_BTN, this.onJump, this);
         EventCenter.instance.removeEventListener(EventConst.JOY_STICK,  this.onJoyStick, this);
         EventCenter.instance.removeEventListener(EventConst.ROLE_STATE,  this.onRoleState, this);
+        EventCenter.instance.removeEventListener(EventConst.HIT_BOOM, this.onBoom, this)
         this.addEventListener(egret.Event.ENTER_FRAME, this.onEnterFrame, this);
     }
     
@@ -78,17 +87,30 @@ class Role extends egret.DisplayObjectContainer {
     }
 
     set roleState(state:ROLE_STATE) {
-        if (this._roleState == state){
-            return;
-        }
+        // if (this._roleState == state){
+        //     return;
+        // }
 
         this._roleState = state;
+        this._mc.visible = true;
+        this._boomeffect.visible = false;
         if (this._roleState == ROLE_STATE.JUMP) {
             this._mc.gotoAndPlay("jump", -1);
         } else if(this._roleState == ROLE_STATE.RUN){
             this._mc.gotoAndPlay("run", -1);
+        } else if (this._roleState == ROLE_STATE.BOOM) {
+            this._mc.visible = false;
+            this._boomeffect.visible = true;
+            this._boomeffect.gotoAndPlay("play")
         } else {
             this._mc.gotoAndPlay("run", -1);
+        }
+    }
+
+    private onBoom(evt:egret.Event) {
+        let id = evt.data;
+        if (id == this.id) {
+            this.onStateChange(ROLE_STATE.BOOM, Util.time(), this.x, this.y)
         }
     }
 
@@ -113,9 +135,13 @@ class Role extends egret.DisplayObjectContainer {
             } else if (newState == ROLE_STATE.JUMP){
                 this._actStartTime = params[0];
                 this._actStartX = params[1];
-                this._actStartY = params[2]
+                this._actStartY = params[2];
                 this._vx = params[3];
                 this._vy = params[4];
+            } else if (newState == ROLE_STATE.BOOM) {
+                this._actStartTime = params[0];
+                this._actStartX = params[1];
+                this._actStartY = params[2];
             } else {
                 this._actStartTime = params[0];
                 this._actStartX = params[1];
@@ -158,20 +184,28 @@ class Role extends egret.DisplayObjectContainer {
     }
 
     private onJoyStick(evt:egret.Event) {
+        if (GameModel.instance.isReady){ // 准备期间
+            return
+        }
+
+
         if (evt.data.id == this._id) {
+            let speed = 0
             if (evt.data.direction == JOY_STICK_DIRECTION.LEFT) {
-                this._speed = -GameConfig.MOVE_SPEED;
+                speed = -GameConfig.MOVE_SPEED;
             } else if (evt.data.direction == JOY_STICK_DIRECTION.RIGHT) {
-                this._speed = GameConfig.MOVE_SPEED;
+                speed = GameConfig.MOVE_SPEED;
             } else {
-                this._speed = 0;
+                speed = 0;
             }
 
-            if (this._speed != 0 && this.roleState == ROLE_STATE.NORMAL) {
-                this.onStateChange(ROLE_STATE.RUN, Util.time(), this.x, this.y, this._speed);
-            } else if (this._speed == 0 && this.roleState == ROLE_STATE.RUN) {
-                this.onStateChange(ROLE_STATE.NORMAL, Util.time(), this.x, this.y, this._speed);
+            if (speed != 0 && (this.roleState == ROLE_STATE.NORMAL || this.roleState == ROLE_STATE.RUN && speed != this._speed)) {
+                this.onStateChange(ROLE_STATE.RUN, Util.time(), this.x, this.y, speed);
+            } else if (speed == 0 && this.roleState == ROLE_STATE.RUN) {
+                this.onStateChange(ROLE_STATE.NORMAL, Util.time(), this.x, this.y, speed);
             }
+
+            this._speed = speed;
         }
     }
 
@@ -187,11 +221,11 @@ class Role extends egret.DisplayObjectContainer {
             return
         }
 
-        if (GameModel.instance.stop) { 
+        if (GameModel.instance.stop) {  // 游戏结束
             return;
         }
 
-        if (this.id != GameModel.instance.userUid) {
+        if (this.id != GameModel.instance.userUid) { 
             return
         }
 
@@ -201,14 +235,22 @@ class Role extends egret.DisplayObjectContainer {
         }
 
         let now = Util.time();
-        if (this._speed != 0 && this.roleState == ROLE_STATE.RUN){
+        if (this.roleState == ROLE_STATE.RUN && this._speed != 0){
             this.x = this._actStartX + this._speed * (now - this._actStartTime)/1000
-        }
-
-        if (this.roleState == ROLE_STATE.JUMP) {
+        } else if (this.roleState == ROLE_STATE.JUMP) {
             let p:egret.Point = this.getJumpPos((now - this._actStartTime)/1000);
             this.x = p.x;
             this.y = p.y;
+        } else if (this.roleState == ROLE_STATE.BOOM) {
+            // console.log("check boom time", now - this._actStartTime)
+            if (now - this._actStartTime > GameConfig.BOOM_TIME * 1000) {
+                
+                if (this._speed != 0) {
+                    this.onStateChange(ROLE_STATE.RUN, Util.time(), this.x, this.y, this._speed);
+                } else {
+                    this.onStateChange(ROLE_STATE.NORMAL, Util.time(), this.x, this.y, this._speed);
+                }
+            }
         }
 
         if (this.x < GameConfig.MIN_X) {
@@ -248,7 +290,7 @@ class Role extends egret.DisplayObjectContainer {
                         let c = this._actStartY - ground.y;
                         let t1 = (-b - Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2*a);
                         let t2 = (-b + Math.sqrt(Math.pow(b, 2) - 4 * a * c)) / (2*a);
-                        let t = t1 > dt ?  t1 : t2;
+                        let t = t1 >= dt ?  t1 : t2;
                         let x = this.calJumpX(t);
                         x = Math.max(x, GameConfig.MIN_X);
                         x = Math.min(x, GameConfig.MAX_X);
@@ -266,7 +308,7 @@ class Role extends egret.DisplayObjectContainer {
                 }
             }
             
-        }else { // 掉下去
+        }else if (this.roleState == ROLE_STATE.NORMAL || this.roleState == ROLE_STATE.RUN){ // 掉下去
             let now = Util.time();
             let isFall = true
             for (let i = 0; i < GameModel.instance.groundLst.length; ++i){
@@ -288,7 +330,12 @@ class Role extends egret.DisplayObjectContainer {
 
     // 收到跳跃指令
     private onJump(evt:egret.Event) {
+        if (GameModel.instance.isReady){ // 准备期间
+            return
+        }
+
         if (this.roleState != ROLE_STATE.JUMP && 
+            this.roleState != ROLE_STATE.BOOM &&
             evt.data.id == this._id) {
             let now = Util.time();
             let v0 = this.calJumpV0();

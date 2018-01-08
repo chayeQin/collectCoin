@@ -19,7 +19,7 @@ class ResponseMgr {
         console.log(params);
         // GameModel.instance.userUid = params[0];
         JYXFinishLoading();
-        // ResponseMgr.testGameStart()
+        ResponseMgr.testGameStart()
     }
 
     public static testGameStart(){

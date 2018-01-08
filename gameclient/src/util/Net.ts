@@ -36,7 +36,6 @@ class Net {
     private onConnect(evt:egret.Event) {
         this._id = 0;
         EventCenter.instance.dispatchSelfEvent(EventConst.CONNECT_SUCCESS)
-
         console.log("***Net.onConnect 连接服务器成功");
         Util.startHeartBeat();
     }
@@ -44,6 +43,7 @@ class Net {
     private onClose(evt:egret.Event) {
         console.log("***Net.onClose 断开服务器");
         Util.stopHeartHeat();
+        
     }
 
     private onReceive(evt:egret.Event) {
@@ -71,7 +71,7 @@ class Net {
      */
     public send(method:string, ...params){
         if (!this._socket.connected){
-            console.log("ERROR*** Net.send 没有连接服务器");
+            console.log("ERROR*** Net.send 没有连接服务器", method);
             return
         }
 

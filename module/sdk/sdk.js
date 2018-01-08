@@ -106,7 +106,7 @@ function JYXPKStart(){
 function JYXPKFinish(result){
 	if(window.nativeApp != null && window.nativeApp.onPKFinish != null){
 		window.nativeApp.onPKFinish(result);
-	}else if(TZOpen && TZOpen != null && TZOpen.getResult != null){
+	}else if(typeof(TZOpen) != "undefined" && TZOpen && TZOpen.getResult){
 		TZOpen.getResult(result);
 	}
 }

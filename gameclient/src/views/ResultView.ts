@@ -31,7 +31,7 @@ class ResultView extends egret.DisplayObjectContainer {
         num.text = score;
         Util.setAnchorPoint(num, 0, 0.5);
         num.x = DisplayUtil.stageWidth/2;
-        num.y = 755;
+        num.y = 780;
         img.x = DisplayUtil.stageWidth/2 - img.width/2;
         img.y = DisplayUtil.stageHeight/2 - img.height/2;
     }

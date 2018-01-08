@@ -9,4 +9,5 @@ class EventConst {
     public static JUMP_BTN = "jumpBtn";
     public static ROLE_STATE = "roleState";
     public static SCORE_SYNC = "scoreSync";
+    public static HIT_BOOM = "hitBoom";
 }
